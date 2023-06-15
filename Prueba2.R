@@ -7,7 +7,7 @@ library(tidyr)
 getwd()
 
 #Leer el excel de nuestra data
-data <- read_excel("dataprueba.xlsx")
+data <- read_excel("BaseDeDatosOriginal.xlsx")
 
 #Cambiar el encabezado de la tabla a:
 data<- data %>% rename(valor = value) %>% rename(tipodevalor = Tipodevalor) %>% rename(paises = País__ESTANDAR) %>% rename(anio = Años__ESTANDAR)
@@ -20,3 +20,4 @@ data <- na.omit(data)
 
 #Redondear los valores a dos decimales
 data$valor<- round(data$valor, 2)
+

@@ -26,7 +26,7 @@ getwd()
 
 ***Leer el excel de nuestra data***
 ```{r}
-data <- read_excel("dataprueba.xlsx")
+data <- read_excel("BaseDeDatosOriginal.xlsx")
 ```
 
 ***Ver nuestra data que esta en la variable data***
