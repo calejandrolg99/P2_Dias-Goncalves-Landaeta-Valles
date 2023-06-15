@@ -88,10 +88,10 @@ head(data$valor, 10)
 
 ```{r}
 grafico1 <- data %>% filter(tipodevalor == "Número absoluto") %>%
-ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
+ggplot(aes(x = anio, y = valor, fill = paises)) +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número de muertes de mujer") +
+  ylab("Número absoluto de muertes de mujeres") +
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
   scale_y_continuous(limits=c(0, max(data$valor)))
 ```
@@ -100,12 +100,12 @@ ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
 
 ```{r}
 grafico2 <- data %>% filter(tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
-  ggplot(aes(x = anio, y = valor, fill = tipodevalor))  +
+  ggplot(aes(x = anio, y = valor, fill = paises))  +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número de muertes de mujer") + 
+  ylab("Número de muertes por cada 100.000 mujeres") + 
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
-  scale_y_continuous(limits=c(0, max(data$valor)))
+  scale_y_continuous(limits=c(0, max(40)))
 ```
 
 Con la ayuda de las gráficas podemos entender un poco el significado de los dos tipos de datos que se muestran, es decir, el Número Absoluto y la tasa por cada 100.000 mujeres. Concluimos que, aunque ambos nos muestran lo mismo, visualmente son diferentes. La más visual es la de Número Absoluto, ya que nos permite ver los países que tienen una mayor cantidad de muertes en un año específico. En cambio, el otro nos muestra por año la cantidad de muertes que hay por cada 100.000 mujeres en el pais.
