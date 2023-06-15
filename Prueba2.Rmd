@@ -1,0 +1,92 @@
+---
+title: 'Muerte de mujeres ocasionada por su pareja o expareja íntima'
+output: 
+html_document: 
+  toc: yes
+  toc_depth: 2
+date: "2023-06-14"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+***Librería necesaria***
+```{r}
+library(readxl)
+library(tidyverse)
+library(dslabs)
+```
+
+***Ver en qué directorio estamos parados***
+```{r}
+getwd()
+```
+
+***Leer el excel de nuestra data***
+```{r}
+data <- read_excel("dataprueba.xlsx")
+```
+
+***Ver nuestra data que esta en la variable data***
+```{r}
+head(data)
+```
+
+***Cambiar el encabezado de la tabla a:***
+```{r}
+data<- data %>% rename(valor = value) %>% rename(tipodevalor = Tipodevalor) %>% rename(paises = País__ESTANDAR) %>% rename(anio = Años__ESTANDAR)
+
+```
+
+***Ver nuestra data que esta en la variable data***
+```{r}
+head(data)
+```
+
+
+***Seleccionando las variables de interés y ordenar por anio***
+**Seleccionamos solo paises, año, valor y tipodevalor porque son las variables de interés para esta investigación**
+```{r}
+data <- data %>% select(paises, anio, valor, tipodevalor) %>% arrange(anio)
+```
+
+***Ver nuestra data que esta en la variable data***
+```{r}
+head(data, 10)
+```
+
+***Quitar los na de la tabla***
+**Ya que son valores que no se encontrar al recoger la data**
+```{r}
+data<- na.omit(data)
+```
+
+***Ver nuestra data que esta en la variable data***
+```{r}
+head(data, 10)
+```
+
+***Ver la variable valores no modificada***
+```{r}
+head(data$valor, 10)
+```
+
+***Redondear la variable valor a dos decimales***
+```{r}
+data$valor<- round(data$valor, 2)
+```
+
+***Ver la variable valores modificada***
+```{r}
+head(data$valor, 10)
+```
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
