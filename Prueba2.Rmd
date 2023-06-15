@@ -7,19 +7,17 @@ html_document:
 date: "2023-06-14"
 ---
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
+Para está investigación, utilizamos la data proporcionada por el sitio web de la Comisión Económica para América Latina y el Caribe (CEPAL) que es una de las cinco comisiones regionales de las Naciones Unidas y su sede está en Santiago de Chile. Cuya investigación trata de gráficar y analizar las Muertes de mujeres ocacionadas por su pareja o expareja íntima sobre 28 países de Latinoamérica y de la Península Ibérica. Además, los datos abarcan un período de 20 años, el cuál inicia en 2001 y finaliza en 2021.
 
-
+Para comenzar, lo primero que hicimos fue limpiar la data. Para ello realizamos lo siguiente:
 ***Librería necesaria***
 ```{r}
 library(readxl)
 library(tidyverse)
-library(dslabs)
+library(tidyr)
 ```
 
-***Ver en qué directorio estamos parados***
+***Ver en qué directorio en donde nos encontramos***
 ```{r}
 getwd()
 ```
@@ -29,12 +27,12 @@ getwd()
 data <- read_excel("BaseDeDatosOriginal.xlsx")
 ```
 
-***Ver nuestra data que esta en la variable data***
+***Ver nuestra la cabecera que esta en la variable data***
 ```{r}
 head(data)
 ```
 
-***Cambiar el encabezado de la tabla a:***
+***Cambiar el encabezado de la tabla para una mejor lectura:***
 ```{r}
 data<- data %>% rename(valor = value) %>% rename(tipodevalor = Tipodevalor) %>% rename(paises = País__ESTANDAR) %>% rename(anio = Años__ESTANDAR)
 
@@ -82,11 +80,38 @@ data$valor<- round(data$valor, 2)
 ```{r}
 head(data$valor, 10)
 ```
-## Including Plots
+**Gráficas**
+***Comparamos entre los dos tipos de valores que tenemos, es decir, Número Absoluto y tasa por cada 100 mujeres***
+***Los cuales son dos tipos de forma de ver los datos***
+***El primer gráfico nos muestra la data en funcion al Tipo "Número Absoluto"***
 
-You can also embed plots, for example:
-
-```{r pressure, echo=FALSE}
-plot(pressure)
+```{r}
+grafico1 <- data %>% filter(tipodevalor == "Número absoluto") %>%
+ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
+  geom_bar(stat = "identity") +
+  xlab("Años (2001-2021)") +
+  ylab("Número de muertes de mujer") +
+  ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
+  scale_y_continuous(limits=c(0, max(data$valor)))
 ```
+
+***El segundo gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
+
+```{r}
+grafico2 <- data %>% filter(tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
+  ggplot(aes(x = anio, y = valor, fill = tipodevalor))  +
+  geom_bar(stat = "identity") +
+  xlab("Años (2001-2021)") +
+  ylab("Número de muertes de mujer") + 
+  ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
+  scale_y_continuous(limits=c(0, max(data$valor)))
+```
+
+Con la ayuda de las gráficas podemos entender un poco el significado de los dos tipos de datos que se muestran, es decir, el Número Absoluto y la tasa por cada 100.000 mujeres. Concluimos que, aunque ambos nos muestran lo mismo, visualmente son diferentes. La más visual es la de Número Absoluto, ya que nos permite ver los países que tienen una mayor cantidad de muertes en un año específico. En cambio, el otro nos muestra por año la cantidad de muertes que hay por cada 100.000 mujeres en el pais.
+
+***Mostramos ambo gráfico para posteriormente analizar que es lo que podemos notar en él***
+```{r data, echo=FALSE}
+gridExtra::grid.arrange(grafico1, grafico2, newpage = TRUE, nrow= 2)
+```
+
 
