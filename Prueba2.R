@@ -27,21 +27,21 @@ data$valor<- round(data$valor, 2)
 ##Comparacion entre los dos tipos de valores que tenemos
 # Primer gráfico
 grafico1 <- data %>% filter(tipodevalor == "Número absoluto") %>%
-ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
+ggplot(aes(x = anio, y = valor, fill = paises)) 
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número de muertes de mujer") +
+  ylab("Número absoluto de muertes de mujeres") +
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
   scale_y_continuous(limits=c(0, max(data$valor))) 
 
 # Segundo gráfico
 grafico2 <- data %>% filter(tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
-  ggplot(aes(x = anio, y = valor, fill = tipodevalor))  +
+  ggplot(aes(x = anio, y = valor, fill = paises))  +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número de muertes de mujer") + 
+  ylab("Número de muertes por cada 100.000 mujeres") + 
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
-  scale_y_continuous(limits=c(0, max(data$valor)))
+  scale_y_continuous(limits=c(0, max(40)))
   
 
 # Mostrar ambos gráficos juntos
