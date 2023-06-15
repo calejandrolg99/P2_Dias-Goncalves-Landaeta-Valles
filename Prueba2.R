@@ -1,10 +1,15 @@
 
+install.packages("cowplot")
+install.packages("xlsx")
+
 #librería
 library(readxl)
 library(tidyr)
 library(tidyverse)
 library(ggplot2)
 library(gridExtra)
+library(cowplot)
+library(xlsx)
 
 #Ver en qué directorio estamos parados
 getwd()
@@ -27,22 +32,21 @@ data$valor<- round(data$valor, 2)
 ##Comparacion entre los dos tipos de valores que tenemos
 # Primer gráfico
 grafico1 <- data %>% filter(tipodevalor == "Número absoluto") %>%
-ggplot(aes(x = anio, y = valor, fill = paises)) 
+  ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número absoluto de muertes de mujeres") +
+  ylab("Número de muertes de mujer") +
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
   scale_y_continuous(limits=c(0, max(data$valor))) 
 
 # Segundo gráfico
 grafico2 <- data %>% filter(tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
-  ggplot(aes(x = anio, y = valor, fill = paises))  +
+  ggplot(aes(x = anio, y = valor, fill = tipodevalor))  +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número de muertes por cada 100.000 mujeres") + 
+  ylab("Número de muertes de mujer") + 
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
-  scale_y_continuous(limits=c(0, max(40)))
-  
+  scale_y_continuous(limits=c(0, max(data$valor)))
 
 # Mostrar ambos gráficos juntos
 gridExtra::grid.arrange(grafico1, grafico2, newpage = TRUE)
@@ -74,3 +78,5 @@ line_tasa = data %>%
 #Mostrar ambos graficos juntos
 gridExtra::grid.arrange(line_absoluto, line_tasa, newpage = TRUE)
 
+#Para poner en un excel la data limpia
+xlsx::write.xlsx(data, file = "BaseDeDatosLimpia.xlsx")

@@ -16,6 +16,7 @@ library(readxl)
 library(tidyverse)
 library(tidyr)
 library(cowplot)
+library(xlsx)
 ```
 
 ***Ver en qué directorio en donde nos encontramos***
@@ -88,10 +89,10 @@ head(data$valor, 10)
 
 ```{r}
 grafico1 <- data %>% filter(tipodevalor == "Número absoluto") %>%
-ggplot(aes(x = anio, y = valor, fill = paises)) +
+  ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número absoluto de muertes de mujeres") +
+  ylab("Número de muertes de mujer") +
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
   scale_y_continuous(limits=c(0, max(data$valor)))
 ```
@@ -100,15 +101,19 @@ ggplot(aes(x = anio, y = valor, fill = paises)) +
 
 ```{r}
 grafico2 <- data %>% filter(tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
-  ggplot(aes(x = anio, y = valor, fill = paises))  +
+  ggplot(aes(x = anio, y = valor, fill = tipodevalor))  +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
-  ylab("Número de muertes por cada 100.000 mujeres") + 
+  ylab("Número de muertes de mujer") + 
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
-  scale_y_continuous(limits=c(0, max(40)))
+  scale_y_continuous(limits=c(0, max(data$valor)))
 ```
 
 Con la ayuda de las gráficas podemos entender un poco el significado de los dos tipos de datos que se muestran, es decir, el Número Absoluto y la tasa por cada 100.000 mujeres. Concluimos que, aunque ambos nos muestran lo mismo, visualmente son diferentes. La más visual es la de Número Absoluto, ya que nos permite ver los países que tienen una mayor cantidad de muertes en un año específico. En cambio, el otro nos muestra por año la cantidad de muertes que hay por cada 100.000 mujeres en el pais.
+
+Durante el periodo de 2005 a 2013 hubo varios casos de muertes reportadas de mujeres con cantidades altas, y algunas mantienen cierta estabilidad, en un rango de 120 o más de 150. Sin embargo, en el 2014 y en el 2019 esto ha disminuido considerablemente. Se concluye que en el rango de los años evaluados han exitidos una cantidades de casos de este tipo.
+
+Con respecto al segundo gráfico, es importante señalar que en algunos países con altas cifras de muertes a manos de sus parejas o ex-parejas su tasa de mortalidad por cada 100.000 mujeres son menores debido a que su población femenina es mayor, esto no implica que este tipo de caso sea menos prevalente o menos grave en dichos países.
 
 ***Mostramos ambo gráfico para posteriormente analizar que es lo que podemos notar en él***
 ```{r data, echo=FALSE}
@@ -154,6 +159,11 @@ El numero de muertes de mujeres por parejas o ex-parejas en muchos paises va aum
 legend = get_legend(line_tasa + theme(legend.text = element_text(size = 6)))
 gridExtra::grid.arrange(line_absoluto + theme(legend.position = 'none', plot.title = element_blank()), line_tasa + theme(legend.position = 'none', plot.title = element_blank()), left = NULL, right = legend, newpage = TRUE, top = NULL, bottom = NULL)
 ```
+***Poner en un excel la data limpia***
+```{r}
+xlsx::write.xlsx(data, file = "BaseDeDatosLimpia.xlsx",row.names = FALSE)
+```
+
 
 
 
