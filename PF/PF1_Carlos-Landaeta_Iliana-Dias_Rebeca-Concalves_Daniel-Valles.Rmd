@@ -31,14 +31,13 @@ Se abordará el tópico de la violencia de género en diferentes países de Amé
 1. ¿Cuál es la tasa de muertes de mujeres por razones de género en en los países estudiados?
 2. ¿Cómo ha evolucionado la tasa de muertes de mujeres a lo largo del tiempo en estos países y cuáles son las posibles explicaciones para las tendencias observadas?
 3. ¿Tienen los países con legislaciones en contra de la violencia de género mejorías al respecto?
+4. ¿Qué medidas se han implementado en estos países para prevenir y abordar la violencia de género? ¿Han sido efectivas estas políticas?
 
 ***
 
 ### Título Propuesto
 
-Se propone el siguiente título para el proyecto a realizar, basándose en las interrogantes planteadas:
-
-**_Análisis de la violencia de género en América Latina y el Caribe, España y Portugal: tendencias y evolución_**
+Se propone el título **Análisis de la violencia de género en América Latina y el Caribe, España y Portugal: tendencias y evolución** para el proyecto a realizar, basándose en las interrogantes planteadas.
 
 ***
 
@@ -46,15 +45,17 @@ Se propone el siguiente título para el proyecto a realizar, basándose en las i
 
 Se escogió el tópico de la violencia de género porque es un problema grave que afecta a millones de mujeres en las regiones que se estudiarán. La violencia de género es una violación de los derechos humanos y un problema de salud pública y justicia social. A pesar de los esfuerzos de los movimientos de mujeres y la respuestas gubernamentales en muchos países, la violencia de género continúa afectando a millones de mujeres cada año. Es importante analizar las tendencias y evolución a lo largo de los años, así como si los países que tienen legislaciones al respecto han reducido la violencia de género. La disponibilidad de datos sobre la violencia contra las mujeres y ha aumentado significativamente en los últimos años, lo que permite una mejor comprensión del problema y la identificación de estrategias para su prevención y erradicación.
 
+Otro enfoque, es la muerte de mujeres ocasionadas por su pareja o ex pareja íntima debido a la violencia, el cual también es un tema muy serio y que en parte ha sido abordado desde la perspectiva normativa, institucional y con políticas públicas específicas. A pesar de los progresos registrados en muchos lugares y de la lucha constante de las organizaciones por los derechos de las mujeres, la violencia hacia ellas sigue siendo altamente preocupante y persiste hasta hoy en día.
+
 ***
 
 ### Descripción de Datos
 
-Se utilizarán datos obtenidos de CEPAL que contienen información sobre la cantidad de muertes de mujeres por parejas o ex-parejas cada año año en los países a estudiar, así como las tasas de muertes cada 100.000 mujeres en dichos países. 
+Esta investigación se enfoca en mujeres mayores de 15 años de edad y más que han sido víctimas mortales a manos de sus parejas o ex pareja íntima , con el objetivo de cuantificar su incidencia anualmente. Es importante destacar que mujeres y niñas en todas las regiones del mundo son afectadas por violencia género. En cuanto a las variables que serán consideradas en esta investigación, principalmente se incluirán:
 
-También, se utilizarán datos obtenidos de WorldBank que contienen información a nivel mundial sobre la violencia de género, incluyendo información sobre si los paises tienen legislaciones en contra de la violencia de género en cada año.
+Para resolver este caso de estudio se seleccionará un rango de años desde aproximadamente de 2014 hasta 2021 y se seleccionará diferentes países de América Latina, el Caribe, España y Portugal. Además, se utilizarán datos obtenidos de CEPAL que contienen información sobre los tipos de valores mencionados como la cantidad de muertes de mujeres por parejas o ex-parejas cada año en los países a estudiar, así como las tasas de muertes cada 100.000 mujeres en dichos países. 
 
-Finalmente, se utilizarán datos que contienen la población de los países a estudiar a lo largo de los años, lo cuál es importante al analizar la cantidad de muertes.
+También, se utilizarán datos obtenidos de WorldBank que contienen información a nivel mundial sobre la violencia de género, incluyendo información sobre si los países tienen legislaciones en contra de la violencia de género en cada año. Y, se utilizarán datos que contienen la población de los países a estudiar a lo largo de los años, lo cual es importante al analizar la cantidad de muertes.
 
 Para acceder a los datos, entrar en los siguientes enlaces:
 
@@ -65,7 +66,5 @@ Para acceder a los datos, entrar en los siguientes enlaces:
 
 ### Metodología
 
-Para responder a las interrogantes planteadas, se deben organizar los datos, ya que se usarán 3 bases de datos distintas, que no cuentan con la misma estructura. Lo primero es filtrar las bases de datos para que sólo contengan los países y años que se desean estudiar, luego, traducir los nombres de los países a español, ya que dos bases de datos se encuentran en inglés. Posteriormente, se integrarán las bases de datos en una sola tabla para facilitar el análisis y la búsqueda de correlaciones. 
-
-
+Para responder a las preguntas planteadas, es necesario organizar los datos ya que se usarán tres bases de datos distintas que no cuentan con la misma estructura. En primera instancia, se deben filtrar las bases de datos para que sólo contengan los países y años deseados. Luego, se deben traducir con ayuda de las librerías del lenguaje utilizado, los nombres de los países a español ya que dos de las bases están en inglés. Posteriormente, las bases de datos se integrarán en una sola tabla para facilitar el análisis y la búsqueda de correlaciones. Finalmente, se logrará realizar un análisis y dar respuesta a las preguntas planteadas a través de gráficas que ayudará a entender mejor visualmente este tema.
 
