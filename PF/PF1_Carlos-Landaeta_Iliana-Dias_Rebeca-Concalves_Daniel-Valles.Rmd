@@ -1,0 +1,71 @@
+---
+title: "Propuesta Proyecto Final"
+output: 
+  html_document:
+    toc: true
+    toc_float: true 
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Propuesta de Proyecto Final de Introducción a la Ciencia de Datos
+
+***
+
+### Miembros del Equipo
+
+* Iliana Dias
+* Rebeca Goncalves
+* Carlos Landaeta
+* Daniel Valles
+
+***
+
+### Tópico a abordar
+
+Se abordará el tópico de la violencia de género en diferentes países de América Latina, el Caribe, España y Portugal. Se analizarán sus tendencias a lo largo de los años, y algunas posibles correlaciones. Es por eso que se plantean las siguientes interrogantes:
+
+1. ¿Cuál es la tasa de muertes de mujeres por razones de género en en los países estudiados?
+2. ¿Cómo ha evolucionado la tasa de muertes de mujeres a lo largo del tiempo en estos países y cuáles son las posibles explicaciones para las tendencias observadas?
+3. ¿Tienen los países con legislaciones en contra de la violencia de género mejorías al respecto?
+
+***
+
+### Título Propuesto
+
+Se propone el siguiente título para el proyecto a realizar, basándose en las interrogantes planteadas:
+
+**_Análisis de la violencia de género en América Latina y el Caribe, España y Portugal: tendencias y evolución_**
+
+***
+
+### Justificación
+
+Se escogió el tópico de la violencia de género porque es un problema grave que afecta a millones de mujeres en las regiones que se estudiarán. La violencia de género es una violación de los derechos humanos y un problema de salud pública y justicia social. A pesar de los esfuerzos de los movimientos de mujeres y la respuestas gubernamentales en muchos países, la violencia de género continúa afectando a millones de mujeres cada año. Es importante analizar las tendencias y evolución a lo largo de los años, así como si los países que tienen legislaciones al respecto han reducido la violencia de género. La disponibilidad de datos sobre la violencia contra las mujeres y ha aumentado significativamente en los últimos años, lo que permite una mejor comprensión del problema y la identificación de estrategias para su prevención y erradicación.
+
+***
+
+### Descripción de Datos
+
+Se utilizarán datos obtenidos de CEPAL que contienen información sobre la cantidad de muertes de mujeres por parejas o ex-parejas cada año año en los países a estudiar, así como las tasas de muertes cada 100.000 mujeres en dichos países. 
+
+También, se utilizarán datos obtenidos de WorldBank que contienen información a nivel mundial sobre la violencia de género, incluyendo información sobre si los paises tienen legislaciones en contra de la violencia de género en cada año.
+
+Finalmente, se utilizarán datos que contienen la población de los países a estudiar a lo largo de los años, lo cuál es importante al analizar la cantidad de muertes.
+
+Para acceder a los datos, entrar en los siguientes enlaces:
+
+* [CEPAL](https://statistics.cepal.org/portal/databank/index.html?lang=es&indicator_id=1345&area_id=544&members=213%2C214%2C216%2C219%2C220%2C224%2C225%2C226%2C249%2C228%2C229%2C230%2C20378%2C234%2C237%2C239%2C243%2C246%2C236%2C240%2C241%2C242%2C244%2C20377%2C261%2C264%2C257%2C260%2C262%2C263%2C256%2C258%2C259%2C22011%2C29171%2C29172%2C29173%2C29174%2C29175%2C29176%2C29177%2C29178%2C29179%2C29180%2C29181%2C29182%2C29183%2C29184%2C29185%2C29186%2C29187%2C29188%2C29189%2C29190%2C29191)
+* [WorldBank](https://databank.worldbank.org/source/gender-statistics)
+
+***
+
+### Metodología
+
+Para responder a las interrogantes planteadas, se deben organizar los datos, ya que se usarán 3 bases de datos distintas, que no cuentan con la misma estructura. Lo primero es filtrar las bases de datos para que sólo contengan los países y años que se desean estudiar, luego, traducir los nombres de los países a español, ya que dos bases de datos se encuentran en inglés. Posteriormente, se integrarán las bases de datos en una sola tabla para facilitar el análisis y la búsqueda de correlaciones. 
+
+
+
