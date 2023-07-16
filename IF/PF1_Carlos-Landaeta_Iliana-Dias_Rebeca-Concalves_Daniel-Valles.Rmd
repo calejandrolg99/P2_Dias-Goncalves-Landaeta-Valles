@@ -1,0 +1,105 @@
+---
+title: "ANÁLISIS DE LA VIOLENCIA DE GÉNERO EN AMÉRICA LATINA Y EL CARIBE, ESPAÑA Y PORTUGAL: TENDENCIAS Y EVOLUCIÓN."
+
+output: 
+  html_document:
+    toc: true
+    toc_float: true 
+date: "`r Sys.Date()`"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Rebeca Goncalves, Iliana Dias, Daniel Valles y Carlos Landaeta.
+
+***
+<kbd>
+<image src="https://afroamiga.files.wordpress.com/2021/01/alto-a-la-violencia-contra-la-mujer-1.jpg" alt="No más violencia" >
+</kbd>
+
+### INTRODUCCIÓN.
+
+ El presente caso de estudio trata sobre la violencia contra las mujeres y niñas ya sea por parte de sus parejas, un familiar o una persona ajena a ellas.  Es un problema grave y extendido en todo el mundo. Se define como cualquier acto de violencia de género que resulte en daño físico o psicológico para las mujeres. Esta violencia puede tomar muchas formas diferentes, incluyendo el abuso físico, el acoso sexual, la explotación, la trata de personas y el feminicidio. 
+
+  Según el informe de la Organización de las Naciones Unidas, ONU Mujeres (2017), las  mujeres y niñas enfrentan acoso sexual y violencia en espacios públicos,  transporte público, lugares de recreación y mercados, tanto en países en desarrollo como desarrollados. En Latinoamérica, se han establecido políticas públicas y programas para evaluar, monitorear y establecer medidas para prevenir y erradicar la violencia contra la mujer.
+
+  En los últimos años, ha habido numerosos casos en los que mujeres han sido víctimas de la violencia. Las historias de estas mujeres son impactantes y alarmantes, y deben ser atendidas con carácter prioritario y abordadas de manera efectiva por los gobiernos, organizaciones internacionales y la sociedad en su conjunto para garantizar y resguardar los derechos de las mujeres, niñas y adolescentes.
+  
+  Mencionado lo anterior, la violencia de género es un tema importante y relevante en la sociedad actual. Por lo tanto, en este caso de estudio, nos enfocaremos en el análisis de la situación de violencia de género en América Latina y el Caribe, España y Portugal, específicamente tomando en cuenta la tendencia y evolución a lo largo de los años. Presentaremos gráficos que mostrarán las tasas de muertes de mujeres por razones de género en los países mencionados. Además, analizaremos cómo ha evolucionado la tasa de muertes de mujeres a lo largo del tiempo y si existe mejoría con respecto a la violencia de género en los países con legislaciones. Estos gráficos responderán a las interrogantes planteadas de los cuales se podrá sacar conclusiones.
+
+  
+***
+### JUSTIFICACIÓN DEL TEMA ELEGIDO.
+
+  Se escogió el tópico de la violencia de género porque es un problema grave que afecta a millones de mujeres en las regiones que se estudiarán. La violencia de género es una violación de los derechos humanos y un problema de salud pública y justicia social. A pesar de los esfuerzos de los movimientos de las mujeres y la respuestas gubernamentales en muchos países, la violencia de género continúa afectando a millones de mujeres cada año. Es importante y fundamental analizar las tendencias y su evolución a lo largo de los años, así como si los países que tienen legislaciones al respecto han reducido la violencia de género. La disponibilidad de datos sobre la violencia contra las mujeres y ha aumentado significativamente en los últimos años, lo que permite una mejor comprensión del problema y la identificación de estrategias para su prevención y erradicación.
+
+  Por otra parte, otro enfoque importante es la muerte de mujeres ocasionadas por su pareja o ex pareja íntima debido a la violencia, el cual también es un tema muy serio y que en parte ha sido abordado desde la perspectiva normativa, institucional y con políticas públicas específicas. A pesar de los progresos registrados en muchos lugares y de la lucha constante de las organizaciones por los derechos de las mujeres, la violencia hacia ellas sigue siendo altamente preocupante y persiste hasta hoy en día.
+  
+<kbd>
+<image src="https://elucabista.com/wp-content/uploads/2021/11/ViolenciacontraMujer.webp" alt="Descripción de la imagen" >
+</kbd>
+
+### INTERROGANTES A CONTESTAR.
+
+  Como ya mencionamos, se abordará el tópico de la violencia de género en diferentes países de América Latina, el Caribe, España y Portugal. Se analizarán sus tendencias y evolución a lo largo de los años, y algunas posibles correlaciones. Es por eso que se plantean las siguientes interrogantes:
+
+**1.** ¿Cuál es la tasa de muertes de mujeres por razones de género en en los países estudiados?
+
+**2.** ¿Cómo ha evolucionado la tasa de muertes de mujeres a lo largo del tiempo en estos países y cuáles son las posibles explicaciones para las tendencias observadas?
+
+**3.** ¿Tienen los países con legislaciones en contra de la violencia de género mejorías al respecto?
+
+***
+
+#### LOS DATOS.
+
+**1.** LIBRERÍAS UTILIZADAS.
+```{r eval=FALSE}
+library(readxl) # Leer archivos de excel
+library(tidyverse) # Manejo de base de datos y gráficos
+library(tidyr) 
+library(cowplot) # Permite organizar fácilmente varios gráficos en una sola figura
+library(xlsx) # Leer, escribir y formatear archivos de Excel
+```
+**2.** CARGAS DE DATOS.
+```{r}
+
+```
+**3.** EXPLICACIÓN DE LAS VARIABLES Y DATOS.
+
+  Esta investigación se enfoca en mujeres mayores de 15 años de edad que han sido víctimas de violencia o víctimas de muerte a manos de sus parejas, un familiar o una persona ajena a ellas, con el objetivo de cuantificar su incidencia anualmente. Es importante destacar que mujeres y niñas en todas las regiones del mundo son afectadas por violencia género. En cuanto a las variables que serán consideradas en esta investigación, principalmente se incluirán:
+
+  Para resolver este caso de estudio se seleccionará un rango de años desde aproximadamente de 2014 hasta 2021 y se seleccionará diferentes países de América Latina, el Caribe, España y Portugal. Se utilizarán datos obtenidos de CEPAL que contienen información sobre los tipos de valores mencionados como la cantidad de muertes de mujeres por parejas o ex-parejas cada año en los países a estudiar, así como las tasas de muertes cada 100.000 mujeres en dichos países. 
+  
+  **- Tasa por cada 100.000 mujeres**, se refiere al cálculo del cociente entre la población masculina y la población femenina, frecuentemente se expresa como el número de hombres por cada 100.000 mujeres, esta medida toma en cuenta la población víctima del suceso.
+  
+  **- Número absoluto**, se refiere a la cantidad exacta de casos registrados de muertes de mujeres ocasionada por su pareja o expareja íntima, en lugar de una medida relativa como tasas o proporciones.
+
+  También, se utilizarán datos obtenidos de WorldBank que contienen información a nivel mundial sobre la violencia de género, incluyendo información sobre si los países tienen legislaciones en contra de la violencia de género en cada año. Y, se utilizarán datos que contienen la población de los países a estudiar a lo largo de los años, lo cual es importante al analizar la cantidad de muertes.
+
+Para acceder a los datos, entrar en los siguientes enlaces:
+
+* [CEPAL](https://statistics.cepal.org/portal/databank/index.html?lang=es&indicator_id=1345&area_id=544&members=213%2C214%2C216%2C219%2C220%2C224%2C225%2C226%2C249%2C228%2C229%2C230%2C20378%2C234%2C237%2C239%2C243%2C246%2C236%2C240%2C241%2C242%2C244%2C20377%2C261%2C264%2C257%2C260%2C262%2C263%2C256%2C258%2C259%2C22011%2C29171%2C29172%2C29173%2C29174%2C29175%2C29176%2C29177%2C29178%2C29179%2C29180%2C29181%2C29182%2C29183%2C29184%2C29185%2C29186%2C29187%2C29188%2C29189%2C29190%2C29191)
+
+* [WorldBank](https://databank.worldbank.org/source/gender-statistics)
+
+
+***
+#### METODOLOGÍA.
+
+  En resumen, para responder a las interrogantes planteadas, es necesario organizar los datos ya que se usarán tres bases de datos distintas que no cuentan con la misma estructura. 
+
+##### Pasos a seguir:
+
+ * Cargar las bases de datos, de los enlaces mencionados anteriormente.
+ * Utilizar una librería del lenguaje utilizado para traducir los nombres de los países a español, ya que dos de las bases están en inglés.
+ * Se filtrará para incluir solo los países y los datos que se utilizarán.
+ * Integrar las bases de datos en una sola tabla.
+ * Realizar gráficos de barras y otras visualizaciones con el objetivo de realizar un análisis y responder las preguntas planteadas.
+
+***
+#### ÁNALISIS.
+
+
