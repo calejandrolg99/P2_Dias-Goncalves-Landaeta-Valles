@@ -5,6 +5,7 @@ output:
   html_document:
     toc: true
     toc_float: true 
+    code_folding: hide
 date: "`r Sys.Date()`"
 ---
 
@@ -53,21 +54,131 @@ Rebeca Goncalves, Iliana Dias, Daniel Valles y Carlos Landaeta.
 
 ***
 
-#### LOS DATOS.
-
-**1.** LIBRERÍAS UTILIZADAS.
+#### SOBRE LOS DATOS.
+**1.** DESCARGAS DE LIBRERÍAS EN CASO DE NO POSEER.
 ```{r eval=FALSE}
+#install.packages("readxl")
+#install.packages("tidyverse")
+#install.packages("tidyr")
+#install.packages("cowplot")
+#install.packages("xlsx")
+#install.packages("ggplot2")
+#install.packages("ggthemes")
+#install.packages("countrycode")
+#install.packages("rmarkdown")
+```
+
+**2.** LIBRERÍAS UTILIZADAS.
+```{r eval= TRUE}
 library(readxl) # Leer archivos de excel
 library(tidyverse) # Manejo de base de datos y gráficos
 library(tidyr) 
 library(cowplot) # Permite organizar fácilmente varios gráficos en una sola figura
 library(xlsx) # Leer, escribir y formatear archivos de Excel
+library(countrycode)
+library(rmarkdown)
 ```
-**2.** CARGAS DE DATOS.
+**3.** DIRECTORIO.
+```{r echo=FALSE}
+getwd()
+```
+**4.** CARGAS DE DATOS.
 ```{r}
+data <- read_excel("BaseDeDatosOriginal.xlsx")
+data1 <- read_excel("TotalMuejeres.xlsx")
+data2 <- read_excel("ProporcionQueNoDenuncian.xlsx")
+data3 <- read_excel("Legislaciones.xlsx")
+
+# Aplica a la base de datos "data"
+# Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
+data <- data %>% arrange(País__ESTANDAR, Años__ESTANDAR) %>% filter(Años__ESTANDAR >= 2014 & Años__ESTANDAR <= 2020) %>% select(País__ESTANDAR, Años__ESTANDAR, value, Tipodevalor) %>% rename(Value = value, Entity = País__ESTANDAR, Year = Años__ESTANDAR)
+
+# Aplica a la base de datos "data1"
+# Código para ordenar por paises y por año. Además para filtrar los no continentes y por los años de interés
+data1 <- data1 %>% arrange(Entity, Year) %>% 
+  filter(Entity != "Channel Islands" & Entity != "East Asia and Pacific" &
+         Entity != "Europe and Central Asia" & Entity != " European Union" & 
+         Entity != "World" & Entity !="High income" & 
+         Entity != "Latin America and Caribbean" & Entity != "Low and middle income"  & 
+         Entity != "Lower middle income" & Entity !="High income" &
+         Entity != "Micronesia (country)" &  Entity!="Middle East and North Africa" & 
+         Entity != "Middle income" &  Entity != "North America" & 
+         Entity != "South Asia" &  Entity!= "Sub-Saharan Africa"& Entity  !="Upper middle income"  & 
+         Entity != "Aruba" & Entity != "Curacao" & Entity != "European Union" & 
+         Entity != "French Polynesia" & Entity != "Guam" & Entity != "Hong Kong" & 
+         Entity != "Low income" & Entity != "Macao" &
+         Entity != "New Caledonia"  & Entity != "Palestine" & 
+         Entity != "United States Virgin Islands" & Entity != "Low income" & Entity != "Puerto Rico", 
+         Year >= 2014 & Year <= 2020)
+
+# Añade una nueva columna con los países en español
+data1$Entity_es <- countrycode(data1$Entity, "country.name.en", "un.name.es")
+
+# Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
+data1 <- data1 %>% select(Entity_es, Code, Year, Population) %>% rename(Entity = Entity_es)
+
+# Aplica a la base de datos "data2"
+# Código para ordenar por paises y por año. Además para filtrar los no continentes y por los años de interés
+data2 <- data2 %>% arrange(CountryName, Year) %>% 
+              filter(CountryName != "East Asia & Pacific" & CountryName != "Europe & Central Asia" & 
+                     CountryName != "Hong Kong SAR, China" &   CountryName != "High income" &
+                     CountryName != "Latin America & Caribbean" & 
+                     CountryName != "Low income"  & CountryName !="Lower middle income" &
+                     CountryName != "Middle East & North Africa" & CountryName != "North America" & 
+                     CountryName != "South Asia" &  CountryName!= "Sub-Saharan Africa" &
+                     CountryName  !="Upper middle income" & 
+                     CountryName != "West Bank and Gaza" & CountryName != "Kosovo", Year >= 2014 & Year <= 2020)
+
+# Añade una nueva columna con los países en español
+data2$Entity_es <- countrycode(data2$CountryName, "country.name.en", "un.name.es")
+
+# Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
+data2 <- data2 %>% select(Entity_es, CountryCode, Year, Value) %>% rename(Entity = Entity_es, Code = CountryCode, NotReport = Value)
+
+# Aplica a la base de datos "data3"
+# Añade una nueva columna con los países en español
+data3$Entity_es <- countrycode(data3$CountryName, "country.name.en", "un.name.es") 
+
+# Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
+data3 <- data3 %>% arrange(Entity_es, Year) %>% select(Entity_es, CountryCode, Year, Value) %>% rename(Entity = Entity_es, Code = CountryCode, Legislation= Value)
 
 ```
-**3.** EXPLICACIÓN DE LAS VARIABLES Y DATOS.
+**3.** VISUALIZACIÓN DEL ENCABEZADO DE LAS BASES DE DATOS
+```{r}
+# Aplica para la base de datos data
+# Visualizar las 10 primeras datas 
+paged_table(
+  data)
+
+```
+
+```{r}
+# Aplica para la base de datos data1
+# Visualizar las 10 primeras datas 
+paged_table(
+  data1)
+
+```
+
+```{r}
+# Aplica para la base de datos data2
+# Visualizar las 10 primeras datas 
+paged_table(
+  data2)
+```
+
+```{r}
+# Aplica para la base de datos data3
+# Visualizar las 10 primeras datas 
+paged_table(
+  data3)
+
+```
+
+
+```
+
+**4.** EXPLICACIÓN DE LAS VARIABLES Y DATOS.
 
   Esta investigación se enfoca en mujeres mayores de 15 años de edad que han sido víctimas de violencia o víctimas de muerte a manos de sus parejas, un familiar o una persona ajena a ellas, con el objetivo de cuantificar su incidencia anualmente. Es importante destacar que mujeres y niñas en todas las regiones del mundo son afectadas por violencia género. En cuanto a las variables que serán consideradas en esta investigación, principalmente se incluirán:
 
