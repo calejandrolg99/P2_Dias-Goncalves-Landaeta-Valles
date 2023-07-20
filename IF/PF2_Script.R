@@ -22,7 +22,7 @@ data5 <- read_excel("LegislacionAbusoDomestico.xlsx")
 
 # Aplica a la base de datos "data"
 # Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
-data <- data %>% arrange(País__ESTANDAR, Años__ESTANDAR) %>% filter(Años__ESTANDAR >= 2014 & Años__ESTANDAR <= 2020) %>% select(País__ESTANDAR, Años__ESTANDAR, value, Tipodevalor) %>% rename(Value = value, Entity = País__ESTANDAR, Year = Años__ESTANDAR)
+data <- data %>% arrange(País__ESTANDAR, Años__ESTANDAR) %>% filter(Años__ESTANDAR >= 2000 & Años__ESTANDAR <= 2020) %>% select(País__ESTANDAR, Años__ESTANDAR, value, Tipodevalor) %>% rename(Value = value, Entity = País__ESTANDAR, Year = Años__ESTANDAR)
 
 #Lista de Paises
 country_list <- unique(data$Entity)
@@ -43,7 +43,7 @@ data1 <- data1 %>% arrange(Entity, Year) %>%
            Entity != "Low income" & Entity != "Macao" &
            Entity != "New Caledonia"  & Entity != "Palestine" & 
            Entity != "United States Virgin Islands" & Entity != "Low income" & Entity != "Puerto Rico", 
-         Year >= 2014 & Year <= 2020)
+         Year >= 2000 & Year <= 2020)
 
 # Añade una nueva columna con los países en español
 data1$Entity_es <- countrycode(data1$Entity, "country.name.en", "un.name.es")
@@ -61,7 +61,7 @@ data2 <- data2 %>% arrange(CountryName, Year) %>%
            CountryName != "Middle East & North Africa" & CountryName != "North America" & 
            CountryName != "South Asia" &  CountryName!= "Sub-Saharan Africa" &
            CountryName  !="Upper middle income" & 
-           CountryName != "West Bank and Gaza" & CountryName != "Kosovo", Year >= 2014 & Year <= 2020)
+           CountryName != "West Bank and Gaza" & CountryName != "Kosovo", Year >= 2000 & Year <= 2020)
 
 # Añade una nueva columna con los países en español
 data2$Entity_es <- countrycode(data2$CountryName, "country.name.en", "un.name.es")
@@ -113,7 +113,7 @@ data4 <- data4 %>% arrange(CountryName, Year) %>%
            CountryName != "Turks and Caicos Islands" &  CountryName != "West Bank and Gaza" & CountryName != "World" & 
            CountryName != "North America" & CountryName != "South Asia" & CountryName != "Sub-Saharan Africa" &
            CountryName != "Upper middle income" & CountryName != "Puerto Rico",
-         Year >= 2014 & Year <= 2020)
+         Year >= 2000 & Year <= 2020)
 
 
 # Añade una nueva columna con los países en español
@@ -125,7 +125,7 @@ data4 <- data4 %>% select(Entity_es, CountryCode, Year, Value) %>% rename(Entity
 # Aplica a la base de datos "data5"
 # Código para ordenar por paises y por año.
 data5 <- data5 %>%
-  pivot_longer(cols = `2014 [YR2014]`:`2020 [YR2020]`, names_to = "Year", values_to = "Value") %>%
+  pivot_longer(cols = `2000 [YR2000]`:`2020 [YR2020]`, names_to = "Year", values_to = "Value") %>%
   select(`Country Name`, `Country Code`, Year, Value) %>%
   rename(Entity = `Country Name`, Code = `Country Code`, HasLegislationDomesticViolence = Value)
 
