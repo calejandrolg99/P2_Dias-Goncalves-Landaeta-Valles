@@ -127,7 +127,48 @@ data4 <- data4 %>% select(Entity_es, CountryCode, Year, Value) %>% rename(Entity
 data5 <- data5 %>%
   pivot_longer(cols = `2000 [YR2000]`:`2020 [YR2020]`, names_to = "Year", values_to = "Value") %>%
   select(`Country Name`, `Country Code`, Year, Value) %>%
-  rename(Entity = `Country Name`, Code = `Country Code`, HasLegislationDomesticViolence = Value)
+  rename(Entity = `Country Name`, Code = `Country Code`, HasLegislationDomesticViolence = Value) %>%
+  arrange(Entity, Year) %>% 
+  filter(Entity != "Africa Eastern and Southern" & Entity != "Africa Western and Central" & 
+           Entity != "American Samoa" &   Entity != "Arab World" &
+           Entity != "Aruba" & Entity != "Bermuda"  & Entity !="Caribbean small states" &
+           Entity != "Cayman Islands" & Entity != "Central Europe and the Baltics" & 
+           Entity != "EAR" &  Entity!= "East Asia & Pacific (IDA & IBRD)" &
+           Entity != "Euro area" & Entity != "Europe & Central Asia (excluding high income)" &
+           Entity != "Europe & Central Asia"& Entity != "Europe & Central Asia (IDA & IBRD)" & 
+           Entity != "European Union" & Entity != "Fragile and conflict affected situations" &   
+           Entity != "French Polynesia" & Entity != "Gibraltar" & 
+           Entity != "Greenland"  & Entity !="Guam" &
+           Entity != "Heavily indebted poor countries (HIPC)" & Entity != "High income" & 
+           Entity != "Curacao" &  Entity!= "East Asia & Pacific" & 
+           Entity  !="East Asia & Pacific (excluding high income)" & 
+           Entity != "British Virgin Islands" & Entity != "Channel Islands" & 
+           Entity != "Hong Kong SAR, China" & Entity != "IBRD only " &
+           Entity != "IDA & IBRD total" & Entity != "IDA blend" & 
+           Entity != "IDA only" & Entity != "Isle of Man" & Entity != "Kosovo" & 
+           Entity != "Latin America & Caribbean" & 
+           Entity != "Latin America & Caribbean (excluding high income)" & 
+           Entity != "Latin America & Caribbean (IDA & IBRD)" & 
+           Entity != "Least developed countries: UN classification" & 
+           Entity != "LMY" & Entity != "Low income" & Entity != "Lower middle income" & 
+           Entity != "LTE" &  Entity != "Macao SAR, China" & Entity != "IBRD only" & 
+           Entity != "MIC" &  Entity != "Middle East & North Africa"  &  
+           Entity != "IDA total" & Entity != "Middle East & North Africa (excluding high income)" &  
+           Entity != "Middle East & North Africa (IDA & IBRD)"  &  Entity != "OECD members" &
+           Entity != "Other small states" &  Entity != "Pacific island small states"  &  
+           Entity != "PRE" & Entity != "PST" &  Entity != "Small states"  &  
+           Entity != "South Asia (IDA & IBRD)" & Entity != "St. Martin (French part)" &  
+           Entity != "Sub-Saharan Africa (excluding high income)"  &  
+           Entity != "Sub-Saharan Africa (IDA & IBRD)" &
+           Entity != "Turks and Caicos Islands" &  Entity != "West Bank and Gaza" & Entity != "World" & 
+           Entity != "North America" & Entity != "South Asia" & Entity != "Sub-Saharan Africa" &
+           Entity != "Upper middle income" & Entity != "Puerto Rico" &
+           Entity != "Early-demographic dividend" & Entity != "Faroe Islands" & 
+           Entity != "Late-demographic dividend" & Entity != "Low & middle income" & 
+           Entity != "Middle income" & Entity != "New Caledonia"& 
+           Entity != "Northern Mariana Islands" & Entity != "Post-demographic dividend" & 
+           Entity != "Pre-demographic dividend" & Entity != "Sint Maarten (Dutch part)" & 
+           Entity != "Virgin Islands (U.S.)")
 
 #Formato de años
 data5$Year <- as.numeric(gsub("\\[.*\\]", "", data5$Year))
@@ -154,3 +195,4 @@ data4 <- data4 %>%
 
 data5 <- data5 %>%
   filter(Entity %in% country_list)
+
