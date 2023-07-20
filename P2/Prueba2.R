@@ -29,15 +29,18 @@ data <- na.omit(data)
 #Redondear los valores a dos decimales
 data$valor<- round(data$valor, 2)
 
+data <- data %>% arrange(País__ESTANDAR, Años__ESTANDAR) %>% filter(Años__ESTANDAR >= 2014 & Años__ESTANDAR <= 2020) %>% select(País__ESTANDAR, Años__ESTANDAR, value, Tipodevalor) %>% rename(Value = value, Entity = País__ESTANDAR, Year = Años__ESTANDAR)
+
+
 ##Comparacion entre los dos tipos de valores que tenemos
 # Primer gráfico
-grafico1 <- data %>% filter(tipodevalor == "Número absoluto") %>%
-  ggplot(aes(x = anio, y = valor, fill = tipodevalor)) +
+grafico1 <- data %>% filter(Tipodevalor == "Número absoluto") %>%
+  ggplot(aes(x = anio, y = Value, fill = Tipodevalor)) +
   geom_bar(stat = "identity") +
   xlab("Años (2001-2021)") +
   ylab("Número de muertes de mujer") +
   ggtitle("Muertes de mujeres ocasionadas por su pareja y ex-pareja") +
-  scale_y_continuous(limits=c(0, max(data$valor))) 
+  scale_y_continuous(limits=c(0, max(data$Value))) 
 
 # Segundo gráfico
 grafico2 <- data %>% filter(tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%

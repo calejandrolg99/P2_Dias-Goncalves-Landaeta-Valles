@@ -77,6 +77,7 @@ library(cowplot) # Permite organizar fácilmente varios gráficos en una sola fi
 library(xlsx) # Leer, escribir y formatear archivos de Excel
 library(countrycode)
 library(rmarkdown)
+library(ggplot2)
 ```
 **3.** DIRECTORIO.
 ```{r echo=FALSE}
@@ -88,6 +89,7 @@ data <- read_excel("BaseDeDatosOriginal.xlsx")
 data1 <- read_excel("TotalMuejeres.xlsx")
 data2 <- read_excel("ProporcionQueNoDenuncian.xlsx")
 data3 <- read_excel("Legislaciones.xlsx")
+data4 <- read_excel("MuertesMujeres.xlsx")
 
 # Aplica a la base de datos "data"
 # Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
@@ -142,6 +144,53 @@ data3$Entity_es <- countrycode(data3$CountryName, "country.name.en", "un.name.es
 # Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
 data3 <- data3 %>% arrange(Entity_es, Year) %>% select(Entity_es, CountryCode, Year, Value) %>% rename(Entity = Entity_es, Code = CountryCode, Legislation= Value)
 
+# Aplica a la base de datos "data4"
+# Código para ordenar por paises y por año. Además para filtrar los no continentes y por los años de interés
+data4 <- data4 %>% arrange(CountryName, Year) %>% 
+  filter(CountryName != "Africa Eastern and Southern" & CountryName != "Africa Western and Central" & 
+         CountryName != "American Samoa" &   CountryName != "Arab World" &
+         CountryName != "Aruba" & CountryName != "Bermuda"  & CountryName !="Caribbean small states" &
+         CountryName != "Cayman Islands" & CountryName != "Central Europe and the Baltics" & 
+         CountryName != "EAR" &  CountryName!= "East Asia & Pacific (IDA & IBRD)" &
+         CountryName != "Euro area" & CountryName != "Europe & Central Asia (excluding high income)" &
+         CountryName != "Europe & Central Asia"& CountryName != "Europe & Central Asia (IDA & IBRD)" & 
+         CountryName != "European Union" & CountryName != "Fragile and conflict affected situations" &   
+         CountryName != "French Polynesia" & CountryName != "Gibraltar" & 
+         CountryName != "Greenland"  & CountryName !="Guam" &
+         CountryName != "Heavily indebted poor countries (HIPC)" & CountryName != "High income" & 
+         CountryName != "Curacao" &  CountryName!= "East Asia & Pacific" & 
+         CountryName  !="East Asia & Pacific (excluding high income)" & 
+         CountryName != "British Virgin Islands" & CountryName != "Channel Islands" & 
+         CountryName != "Hong Kong SAR, China" & CountryName != "IBRD only " &
+         CountryName != "IDA & IBRD total" & CountryName != "IDA blend" & 
+         CountryName != "IDA only" & CountryName != "Isle of Man" & CountryName != "Kosovo" & 
+         CountryName != "Latin America & Caribbean" & 
+         CountryName != "Latin America & Caribbean (excluding high income)" & 
+         CountryName != "Latin America & Caribbean (IDA & IBRD)" & 
+         CountryName != "Least developed countries: UN classification" & 
+         CountryName != "LMY" & CountryName != "Low income" & CountryName != "Lower middle income" & 
+         CountryName != "LTE" &  CountryName != "Macao SAR, China" & CountryName != "IBRD only" & 
+         CountryName != "MIC" &  CountryName != "Middle East & North Africa"  &  
+         CountryName != "IDA total" & CountryName != "Middle East & North Africa (excluding high income)" &  
+         CountryName != "Middle East & North Africa (IDA & IBRD)"  &  CountryName != "OECD members" &
+         CountryName != "Other small states" &  CountryName != "Pacific island small states"  &  
+         CountryName != "PRE" & CountryName != "PST" &  CountryName != "Small states"  &  
+         CountryName != "South Asia (IDA & IBRD)" & CountryName != "St. Martin (French part)" &  
+         CountryName != "Sub-Saharan Africa (excluding high income)"  &  
+         CountryName != "Sub-Saharan Africa (IDA & IBRD)" &
+         CountryName != "Turks and Caicos Islands" &  CountryName != "West Bank and Gaza" & CountryName != "World" & 
+         CountryName != "North America" & CountryName != "South Asia" & CountryName != "Sub-Saharan Africa" &
+         CountryName != "Upper middle income" & CountryName != "Puerto Rico",
+         Year >= 2014 & Year <= 2020)
+
+
+# Añade una nueva columna con los países en español
+data4$Entity_es <- countrycode(data4$CountryName, "country.name.en", "un.name.es")
+
+# Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
+data4 <- data4 %>% select(Entity_es, CountryCode, Year, Value) %>% rename(Entity = Entity_es, Code = CountryCode, Death = Value)
+
+
 ```
 **3.** VISUALIZACIÓN DEL ENCABEZADO DE LAS BASES DE DATOS
 ```{r}
@@ -175,6 +224,11 @@ paged_table(
 
 ```
 
+```{r}
+# Aplica para la base de datos data3
+# Visualizar las 10 primeras datas 
+paged_table(
+  data4)
 
 ```
 
@@ -213,4 +267,28 @@ Para acceder a los datos, entrar en los siguientes enlaces:
 ***
 #### ÁNALISIS.
 
+#### Gráfico 1. TASA POR CADA 100.000 MUJERES.
+
+***El segundo gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
+
+
+***El segundo gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
+
+```{r name-of-chunk, fig.width = 100, fig.height = 100}
+grafico1 = data4 %>% filter(Year == 2014) %>% 
+  ggplot(aes(x = Entity, y = Death, fill = Year)) + 
+  geom_bar(stat = "identity") + 
+  labs(x = "Año", y = "Cantidad de muertes de mujeres") + 
+  theme(axis.text.x = element_text(angle = 45, hjust = 1),
+        panel.spacing.x = unit(1, "cm"))+
+  scale_y_continuous(limits=c(0, max(data4$Death)))
+
+
+knitr::opts_chunk$set(fig.width=6, fig.height=4)
+```
+
+```{r}
+grafico1
+
+```
 
