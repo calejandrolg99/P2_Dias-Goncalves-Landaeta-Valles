@@ -415,7 +415,7 @@ names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Gra
 grafico1 = data %>%
   filter(Tipodevalor == 'Tasa (por cada 100.000 mujeres)') %>% 
   ggplot(aes( x= Year, y= Value, color=continente)) + 
-  geom_line() + geom_point() + 
+  geom_line() + 
   theme(axis.text.x = element_text(angle = 45)) + 
   ggtitle("Comparacion de las tasas por cada 100.000 mujeres", "Separados por pais") + 
   facet_wrap(~continente) 
