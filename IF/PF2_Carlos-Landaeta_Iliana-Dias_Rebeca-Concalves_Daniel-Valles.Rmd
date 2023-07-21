@@ -441,22 +441,21 @@ En este caso lo que se pretende observar es la tasa de muertes o asesinatos real
 ```{r}
 new_data <- left_join(data4,data5,by=c("Entity","Year"))
 
-women_grouped <- new_data %>% 
-  filter(HasLegislationDomesticViolence !="..") %>%
-  group_by(Entity, HasLegislationDomesticViolence) %>% 
+women_grouped <- new_data %>%
+  filter(!is.na(HasLegislationDomesticViolence), Entity %in% c("Chile", "Dominica", "Panamá", "Suriname")) %>%
+  group_by(Entity, HasLegislationDomesticViolence) %>%
   summarize(mean_death_rate = mean(Death))
 
-grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = HasLegislationDomesticViolence)) +
+grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = factor(HasLegislationDomesticViolence))) +
   geom_bar(stat = "identity", position = "dodge") +
-  theme(axis.text.x = element_text(angle = 45)) + 
-  facet_grid(HasLegislationDomesticViolence ~ .) +
+  theme(axis.text.x = element_text(angle = 45)) +
   labs(title = "Comparacion de Tasas de Muerte promedio antes y despues de legislaciones",
        x = "Pais",
        y = "Tasa de Muerte Promedio",
        fill = "Status de Legislacion") +
   theme(plot.title = element_text(hjust = 0.5))
 
-knitr::opts_chunk$set(fig.width=15, fig.height=10)
+knitr::opts_chunk$set(fig.width = 15, fig.height = 10)
 ``` 
 
 ```{r}
