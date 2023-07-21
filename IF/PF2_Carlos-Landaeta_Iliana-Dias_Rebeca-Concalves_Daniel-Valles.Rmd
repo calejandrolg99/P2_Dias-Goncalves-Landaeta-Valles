@@ -11,6 +11,7 @@ date: "`r Sys.Date()`"
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(warning = FALSE)
 ```
 
 Rebeca Goncalves, Iliana Dias, Daniel Valles y Carlos Landaeta.
@@ -83,7 +84,7 @@ library(ggplot2)
 ```{r echo=FALSE}
 getwd()
 ```
-**4.** CARGAS DE DATOS.
+**4.** CARGA DE DATOS Y FORMATO DE TABLAS.
 ```{r}
 data <- read_excel("BaseDeDatosOriginal.xlsx")
 data1 <- read_excel("TotalMuejeres.xlsx")
@@ -92,12 +93,15 @@ data3 <- read_excel("Legislaciones.xlsx")
 data4 <- read_excel("MuertesMujeres.xlsx")
 data5 <- read_excel("LegislacionAbusoDomestico.xlsx")
 
-#Lista de Paises
-country_list <- unique(data$Entity)
 
 # Aplica a la base de datos "data"
 # Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
 data <- data %>% arrange(País__ESTANDAR, Años__ESTANDAR) %>% filter(Años__ESTANDAR >= 2000 & Años__ESTANDAR <= 2020) %>% select(País__ESTANDAR, Años__ESTANDAR, value, Tipodevalor) %>% rename(Value = value, Entity = País__ESTANDAR, Year = Años__ESTANDAR)
+
+data$Year <- as.numeric(data$Year)
+
+#Lista de Paises
+country_list <- unique(data$Entity)
 
 # Aplica a la base de datos "data1"
 # Código para ordenar por paises y por año. Además para filtrar los no continentes y por los años de interés
@@ -114,7 +118,7 @@ data1 <- data1 %>% arrange(Entity, Year) %>%
          Entity != "French Polynesia" & Entity != "Guam" & Entity != "Hong Kong" & 
          Entity != "Low income" & Entity != "Macao" &
          Entity != "New Caledonia"  & Entity != "Palestine" & 
-         Entity != "United States Virgin Islands" & Entity != "Low income" & Entity != "Puerto Rico", 
+         Entity != "United States Virgin Islands" & Entity != "Low income" & Entity != "Puerto Rico" & Entity != "Virgin Islands (U.S.)", 
          Year >= 2000 & Year <= 2020)
 
 # Añade una nueva columna con los países en español
@@ -133,7 +137,7 @@ data2 <- data2 %>% arrange(CountryName, Year) %>%
                      CountryName != "Middle East & North Africa" & CountryName != "North America" & 
                      CountryName != "South Asia" &  CountryName!= "Sub-Saharan Africa" &
                      CountryName  !="Upper middle income" & 
-                     CountryName != "West Bank and Gaza" & CountryName != "Kosovo", Year >= 2014 & Year <= 2020)
+                     CountryName != "West Bank and Gaza" & CountryName != "Kosovo" & CountryName != "New Caledonia" & CountryName != "Virgin Islands (U.S.)", Year >= 2014 & Year <= 2020)
 
 # Añade una nueva columna con los países en español
 data2$Entity_es <- countrycode(data2$CountryName, "country.name.en", "un.name.es")
@@ -184,8 +188,8 @@ data4 <- data4 %>% arrange(CountryName, Year) %>%
          CountryName != "Sub-Saharan Africa (IDA & IBRD)" &
          CountryName != "Turks and Caicos Islands" &  CountryName != "West Bank and Gaza" & CountryName != "World" & 
          CountryName != "North America" & CountryName != "South Asia" & CountryName != "Sub-Saharan Africa" &
-         CountryName != "Upper middle income" & CountryName != "Puerto Rico",
-         Year >= 2000 & Year <= 2020)
+         CountryName != "Upper middle income" & CountryName != "Puerto Rico" & CountryName != "New Caledonia" & CountryName != "Virgin Islands (U.S.)",
+         Year >= 2000 & Year <= 2020, `Indicator Name` == "Intentional homicides, female (per 100,000 female)")
 
 
 # Añade una nueva columna con los países en español
@@ -237,7 +241,7 @@ data5 <- data5 %>%
            Entity != "Upper middle income" & Entity != "Puerto Rico" &
            Entity != "Early-demographic dividend" & Entity != "Faroe Islands" & 
            Entity != "Late-demographic dividend" & Entity != "Low & middle income" & 
-           Entity != "Middle income" & Entity != "New Caledonia"& 
+           Entity != "Middle income" & Entity != "New Caledonia" & 
            Entity != "Northern Mariana Islands" & Entity != "Post-demographic dividend" & 
            Entity != "Pre-demographic dividend" & Entity != "Sint Maarten (Dutch part)" & 
            Entity != "Virgin Islands (U.S.)")
@@ -349,12 +353,9 @@ Para acceder a los datos, entrar en los siguientes enlaces:
 
 #### Gráfico 1. TASA POR CADA 100.000 MUJERES.
 
-***El segundo gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
+***El primer gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
 
-
-***El segundo gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
-
-```{r }
+```{r}
 colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
 names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Granadinas", "Colombia", "España", "Granada", "Jamaica", "Nicaragua", "Puerto Rico", "República Dominicana", "Santa Lucía", "Suriname", "Dominica", "Saint Kitts y Nevis", "Islas Vírgenes Británicas", "Anguila", "Antigua y Barbuda", "Guyana", "Montserrat", "Chile", "Paraguay", "Uruguay", "Perú", "Honduras", "Barbados", "Belice", "El Salvador", "Argentina", "Venezuela (República Bolivariana de)", "Ecuador", "Portugal", "Cuba", "Panamá")
 
@@ -372,6 +373,31 @@ knitr::opts_chunk$set(fig.width=25, fig.height=25)
 
 ```{r}
 grafico1
+
+```
+
+#### Gráfico 2. TASA POR CADA 100.000 MUJERES JUNTO A SI TIENEN LEGISLACIONES.
+
+***El primer gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
+
+```{r}
+new_data <- left_join(data,data5,by=c("Entity","Year"))
+women_grouped <- new_data %>% 
+  filter(Tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
+  group_by(Entity, HasLegislationDomesticViolence) %>% 
+  summarize(mean_death_rate = mean(Value))
+
+grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = HasLegislationDomesticViolence)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparacion de Tasas de muerte por status de legislacion",
+       x = "Pais",
+       y = "Tasa de Muerte promedio",
+       fill = "Status de legislacion") +
+  theme(plot.title = element_text(hjust = 0.5))
+```
+
+```{r}
+grafico2
 
 ```
 

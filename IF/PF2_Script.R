@@ -112,8 +112,8 @@ data4 <- data4 %>% arrange(CountryName, Year) %>%
            CountryName != "Sub-Saharan Africa (IDA & IBRD)" &
            CountryName != "Turks and Caicos Islands" &  CountryName != "West Bank and Gaza" & CountryName != "World" & 
            CountryName != "North America" & CountryName != "South Asia" & CountryName != "Sub-Saharan Africa" &
-           CountryName != "Upper middle income" & CountryName != "Puerto Rico",
-         Year >= 2000 & Year <= 2020)
+           CountryName != "Upper middle income" & CountryName != "Puerto Rico" & CountryName != "New Caledonia" & CountryName != "Virgin Islands (U.S.)",
+         Year >= 2000 & Year <= 2020, `Indicator Name` == "Intentional homicides, female (per 100,000 female)")
 
 
 # Añade una nueva columna con los países en español
@@ -198,6 +198,9 @@ data5 <- data5 %>%
 
 #GRAFICOS ----------------------------------------------------------------------
 #Utilizando la base de datos data
+colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
+names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Granadinas", "Colombia", "España", "Granada", "Jamaica", "Nicaragua", "Puerto Rico", "República Dominicana", "Santa Lucía", "Suriname", "Dominica", "Saint Kitts y Nevis", "Islas Vírgenes Británicas", "Anguila", "Antigua y Barbuda", "Guyana", "Montserrat", "Chile", "Paraguay", "Uruguay", "Perú", "Honduras", "Barbados", "Belice", "El Salvador", "Argentina", "Venezuela (República Bolivariana de)", "Ecuador", "Portugal", "Cuba", "Panamá")
+
 grafico1 = data %>%
   filter(Tipodevalor == 'Tasa (por cada 100.000 mujeres)') %>% 
   ggplot(aes( x= Year, y= Value, group= Entity, color=Entity)) + 
@@ -209,8 +212,21 @@ grafico1 = data %>%
 
 grafico1
 
-colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
-names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Granadinas", "Colombia", "España", "Granada", "Jamaica", "Nicaragua", "Puerto Rico", "República Dominicana", "Santa Lucía", "Suriname", "Dominica", "Saint Kitts y Nevis", "Islas Vírgenes Británicas", "Anguila", "Antigua y Barbuda", "Guyana", "Montserrat", "Chile", "Paraguay", "Uruguay", "Perú", "Honduras", "Barbados", "Belice", "El Salvador", "Argentina", "Venezuela (República Bolivariana de)", "Ecuador", "Portugal", "Cuba", "Panamá")
+new_data <- left_join(data,data5,by=c("Entity","Year"))
+women_grouped <- new_data %>% 
+  filter(Tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
+  group_by(Entity, HasLegislationDomesticViolence) %>% 
+  summarize(mean_death_rate = mean(Value))
+
+grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = HasLegislationDomesticViolence)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Comparacion de Tasas de muerte por status de legislacion",
+       x = "Pais",
+       y = "Tasa de Muerte promedio",
+       fill = "Status de legislacion") +
+  theme(plot.title = element_text(hjust = 0.5))
+
+grafico2
 
 
 
