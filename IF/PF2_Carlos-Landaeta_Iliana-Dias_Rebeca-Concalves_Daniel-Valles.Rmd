@@ -23,7 +23,7 @@ Rebeca Goncalves, Iliana Dias, Daniel Valles y Carlos Landaeta.
 
 ### INTRODUCCIÓN.
 
- El presente caso de estudio trata sobre la violencia contra las mujeres y niñas ya sea por parte de sus parejas, un familiar o una persona ajena a ellas.  Es un problema grave y extendido en todo el mundo. Se define como cualquier acto de violencia de género que resulte en daño físico o psicológico para las mujeres. Esta violencia puede tomar muchas formas diferentes, incluyendo el abuso físico, el acoso sexual, la explotación, la trata de personas y el feminicidio. 
+ El presente caso de estudio trata sobre la violencia contra las mujeres y niñas ya sea por parte de sus parejas, un familiar o una persona ajena a ellas.  Es un problema grave y extendido en todo el mundo. Se define como cualquier acto de violencia de género que resulte en daño físico o psicológico contra la mujer. Esta violencia puede tomar muchas formas diferentes, incluyendo el abuso físico, el acoso sexual, la explotación, la trata de personas y el feminicidio. 
 
   Según el informe de la Organización de las Naciones Unidas, ONU Mujeres (2017), las  mujeres y niñas enfrentan acoso sexual y violencia en espacios públicos,  transporte público, lugares de recreación y mercados, tanto en países en desarrollo como desarrollados. En Latinoamérica, se han establecido políticas públicas y programas para evaluar, monitorear y establecer medidas para prevenir y erradicar la violencia contra la mujer.
 
@@ -92,7 +92,6 @@ data2 <- read_excel("ProporcionQueNoDenuncian.xlsx")
 data3 <- read_excel("Legislaciones.xlsx")
 data4 <- read_excel("MuertesMujeres.xlsx")
 data5 <- read_excel("LegislacionAbusoDomestico.xlsx")
-
 
 # Aplica a la base de datos "data"
 # Seleccionamos las columnas de interés y cambiamos el nombre a las columnas
@@ -272,6 +271,9 @@ data4 <- data4 %>%
 data5 <- data5 %>%
   filter(Entity %in% country_list)
 
+colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
+names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Granadinas", "Colombia", "España", "Granada", "Jamaica", "Nicaragua", "Puerto Rico", "República Dominicana", "Santa Lucía", "Suriname", "Dominica", "Saint Kitts y Nevis", "Islas Vírgenes Británicas", "Anguila", "Antigua y Barbuda", "Guyana", "Montserrat", "Chile", "Paraguay", "Uruguay", "Perú", "Honduras", "Barbados", "Belice", "El Salvador", "Argentina", "Venezuela (República Bolivariana de)", "Ecuador", "Portugal", "Cuba", "Panamá")
+
 ```
 **3.** VISUALIZACIÓN DEL ENCABEZADO DE LAS BASES DE DATOS
 ```{r}
@@ -353,8 +355,7 @@ Para acceder a los datos, entrar en los siguientes enlaces:
 
 #### Gráfico 1. TASA POR CADA 100.000 MUJERES.
 
-***El primer gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
-
+**1.** ¿Cuál es la tasa de muertes de mujeres por razones de género en en los países estudiados?
 ```{r}
 colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
 names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Granadinas", "Colombia", "España", "Granada", "Jamaica", "Nicaragua", "Puerto Rico", "República Dominicana", "Santa Lucía", "Suriname", "Dominica", "Saint Kitts y Nevis", "Islas Vírgenes Británicas", "Anguila", "Antigua y Barbuda", "Guyana", "Montserrat", "Chile", "Paraguay", "Uruguay", "Perú", "Honduras", "Barbados", "Belice", "El Salvador", "Argentina", "Venezuela (República Bolivariana de)", "Ecuador", "Portugal", "Cuba", "Panamá")
@@ -368,7 +369,7 @@ grafico1 = data %>%
   ggtitle("Comparacion de las tasas por cada 100.000 mujeres", "Separados por pais") + 
   facet_wrap(~Entity)
 
-knitr::opts_chunk$set(fig.width=25, fig.height=25)
+knitr::opts_chunk$set(fig.width=18, fig.height=18)
 ```
 
 ```{r}
@@ -376,9 +377,8 @@ grafico1
 
 ```
 
-#### Gráfico 2. TASA POR CADA 100.000 MUJERES JUNTO A SI TIENEN LEGISLACIONES.
 
-***El primer gráfico nos muestra la data en funcion al Tipo "Tasa(por cada 100.000 mujeres)"***
+#### Gráfico 2. TASA POR CADA 100.000 MUJERES JUNTO A SI TIENEN LEGISLACIONES.
 
 ```{r}
 new_data <- left_join(data,data5,by=c("Entity","Year"))
@@ -400,4 +400,7 @@ grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = Ha
 grafico2
 
 ```
+
+#### Gráfico 3. LEGISLACIONES POR VIOLENCIA DOMESTICA.
+
 

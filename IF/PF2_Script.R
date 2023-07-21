@@ -204,13 +204,14 @@ names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Gra
 grafico1 = data %>%
   filter(Tipodevalor == 'Tasa (por cada 100.000 mujeres)') %>% 
   ggplot(aes( x= Year, y= Value, group= Entity, color=Entity)) + 
-  geom_line() + geom_point()+ 
+  geom_line() + geom_point() + 
   theme(axis.text.x = element_text(angle = 45)) + 
   scale_color_manual(values = colors_vec) + 
   ggtitle("Comparacion de las tasas por cada 100.000 mujeres", "Separados por pais") + 
   facet_wrap(~Entity)
 
 grafico1
+
 
 new_data <- left_join(data,data5,by=c("Entity","Year"))
 women_grouped <- new_data %>% 
