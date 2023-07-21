@@ -102,6 +102,55 @@ data$Year <- as.numeric(data$Year)
 #Lista de Paises
 country_list <- unique(data$Entity)
 
+continentes <- tribble(
+  ~pais,                    ~continente,
+  "Costa Rica",               "Central America",
+  "Trinidad y Tabago",      "South America",
+  "San Vicente y las Granadinas", "South America",
+  
+  "Colombia", "South America",
+  "España",  "Europe",
+  "Granada",  "North America",
+  
+  "Jamaica", "North America",
+  "Nicaragua", "North America",
+  "Puerto Rico", "North America",
+  
+  "República Dominicana", "North America",
+  "Santa Lucía",  "North America",
+  "Suriname", "South America",
+  
+  "Dominica", "North America",
+  "Saint Kitts y Nevis", "North America",
+  "Islas Vírgenes Británicas", "North America",
+  
+  "Anguila", "North America",
+  "Antigua y Barbuda",  "North America",
+  "Guyana", "South America",
+  
+  "Montserrat", "North America",
+  "Chile",  "South America",
+  "Paraguay", "South America",
+  
+  "Uruguay", "South America",
+  "Perú",  "South America",
+  "Honduras", "North America",
+  
+  "Barbados", "North America",
+  "Belice", "North America",
+  "El Salvador", "North America",
+  
+  "Argentina", "South America",
+  "Venezuela (República Bolivariana de)", "South America",
+  "Ecuador", "South America",
+  "Portugal", "Europe",
+  "Cuba",  "North America", 
+  "Panamá", "Central America")
+  
+# asignar continentes a la base de datos data
+data <- data %>% mutate(continente = ifelse(Entity %in% continentes$pais, 
+                                              yes= continentes$continente[match(Entity, continentes$pais)], 
+                                              no= NA))
 # Aplica a la base de datos "data1"
 # Código para ordenar por paises y por año. Además para filtrar los no continentes y por los años de interés
 data1 <- data1 %>% arrange(Entity, Year) %>% 
@@ -365,14 +414,13 @@ names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Gra
 
 grafico1 = data %>%
   filter(Tipodevalor == 'Tasa (por cada 100.000 mujeres)') %>% 
-  ggplot(aes( x= Year, y= Value, group= Entity, color=Entity)) + 
-  geom_line() + geom_point()+ 
+  ggplot(aes( x= Year, y= Value, color=continente)) + 
+  geom_line() + geom_point() + 
   theme(axis.text.x = element_text(angle = 45)) + 
-  scale_color_manual(values = colors_vec) + 
   ggtitle("Comparacion de las tasas por cada 100.000 mujeres", "Separados por pais") + 
-  facet_wrap(~Entity)
+  facet_wrap(~continente) 
 
-knitr::opts_chunk$set(fig.width=18, fig.height=18)
+knitr::opts_chunk$set(fig.width=10, fig.height=10)
 ```
 
 ```{r}
@@ -392,6 +440,7 @@ En este caso lo que se pretende observar es la tasa de muertes o asesinatos real
 
 ```{r}
 new_data <- left_join(data4,data5,by=c("Entity","Year"))
+
 women_grouped <- new_data %>% 
   filter(HasLegislationDomesticViolence !="..") %>%
   group_by(Entity, HasLegislationDomesticViolence) %>% 
@@ -399,12 +448,15 @@ women_grouped <- new_data %>%
 
 grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = HasLegislationDomesticViolence)) +
   geom_bar(stat = "identity", position = "dodge") +
+  theme(axis.text.x = element_text(angle = 45)) + 
   facet_grid(HasLegislationDomesticViolence ~ .) +
   labs(title = "Comparacion de Tasas de Muerte promedio antes y despues de legislaciones",
        x = "Pais",
        y = "Tasa de Muerte Promedio",
        fill = "Status de Legislacion") +
   theme(plot.title = element_text(hjust = 0.5))
+
+knitr::opts_chunk$set(fig.width=15, fig.height=10)
 ``` 
 
 ```{r}

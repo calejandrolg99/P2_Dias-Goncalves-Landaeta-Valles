@@ -26,6 +26,56 @@ data <- data %>% arrange(País__ESTANDAR, Años__ESTANDAR) %>% filter(Años__EST
 
 #Lista de Paises
 country_list <- unique(data$Entity)
+               
+continentes <- tribble(
+  ~pais,                    ~continente,
+  "Costa Rica",               "Central America",
+  "Trinidad y Tabago",      "South America",
+  "San Vicente y las Granadinas", "South America",
+  
+  "Colombia", "South America",
+  "España",  "Europe",
+  "Granada",  "North America",
+  
+  "Jamaica", "North America",
+  "Nicaragua", "North America",
+  "Puerto Rico", "North America",
+  
+  "República Dominicana", "North America",
+  "Santa Lucía",  "North America",
+  "Suriname", "South America",
+  
+  "Dominica", "North America",
+  "Saint Kitts y Nevis", "North America",
+  "Islas Vírgenes Británicas", "North America",
+  
+  "Anguila", "North America",
+  "Antigua y Barbuda",  "North America",
+  "Guyana", "South America",
+  
+  "Montserrat", "North America",
+  "Chile",  "South America",
+  "Paraguay", "South America",
+  
+  "Uruguay", "South America",
+  "Perú",  "South America",
+  "Honduras", "North America",
+  
+  "Barbados", "North America",
+  "Belice", "North America",
+  "El Salvador", "North America",
+  
+  "Argentina", "South America",
+  "Venezuela (República Bolivariana de)", "South America",
+  "Ecuador", "South America",
+  "Portugal", "Europe",
+  "Cuba",  "North America", 
+  "Panamá", "Central America")
+  
+# asignar continentes a la base de datos data
+data <- data %>% mutate(continente = ifelse(Entity %in% continentes$pais, 
+                                              yes= continentes$continente[match(Entity, continentes$pais)], 
+                                              no= NA))
 
 # Aplica a la base de datos "data1"
 # Código para ordenar por paises y por año. Además para filtrar los no continentes y por los años de interés
@@ -203,12 +253,11 @@ names(colors_vec) <- c("Costa Rica", "Trinidad y Tabago", "San Vicente y las Gra
 
 grafico1 = data %>%
   filter(Tipodevalor == 'Tasa (por cada 100.000 mujeres)') %>% 
-  ggplot(aes( x= Year, y= Value, group= Entity, color=Entity)) + 
+  ggplot(aes( x= Year, y= Value, color=continente)) + 
   geom_line() + geom_point() + 
   theme(axis.text.x = element_text(angle = 45)) + 
-  scale_color_manual(values = colors_vec) + 
   ggtitle("Comparacion de las tasas por cada 100.000 mujeres", "Separados por pais") + 
-  facet_wrap(~Entity)
+  facet_wrap(~continente) 
 
 grafico1
 
