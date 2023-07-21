@@ -355,7 +355,9 @@ Para acceder a los datos, entrar en los siguientes enlaces:
 
 #### Gráfico 1. TASA DE MUERTES POR CADA 100.000 MUJERES.
 
+
 En el siguiente gráfico se pretende observar cual es la tasa de muertes o asesinatos realizados por razones de género hacia mujeres desde el año 2005 hasta el año 2020 en la región de América Latina, Centroamérica, España y Portugal separado por cada país para facilitar su lectura de donde dicha representación se realizará utilizando un gráfico de líneas.
+
 
 ```{r}
 colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
@@ -377,12 +379,16 @@ knitr::opts_chunk$set(fig.width=18, fig.height=18)
 grafico1
 
 ```
+
 Como se puede observar, se obtuvieron resultados diversos. Por un lado, tenemos que los países europeos incluidos en el estudio (España y Portugal) presentan una tasa por cada 100.000 mujeres bastante baja y este se mantiene de manera constante durante varios años. También existen varios países de América Latina que presentan una tasa baja como lo son Panamá, Venezuela, Argentina, Chile y Colombia. Sin embargo, para el caso de Centro América tenemos que las tasas que aumentan de forma significativa como lo es el caso de San Vicente y las Granadinas, Republica Dominicana, Granada y Antigua y Barbuda.
+
 
 ***
 #### Gráfico 2. TASA DE MUERTES POR CADA 100.000 MUJERES CONSIDERANDO SI EXISTEN O NO LEGISLACIONES QUE REGULEN ESTE TIPO DE CRIMEN.
 
+
 En este caso lo que se pretende observar es la tasa de muertes o asesinatos realizados por razones de género hacia mujeres por países de las regiones de América Latina, Centroamérica y algunos de Europa tomando en consideración si ya existía una legislación para regular este tipo de crímenes o no. Para materializar esto se utilizaron dos gráficos de barras, de donde uno de ellos contiene las tasas de los países que no tenían legislaciones y el otro representa las tasas teniendo en cuenta que existen legislaciones que abordan estos crímenes.
+
 
 ```{r}
 new_data <- left_join(data4,data5,by=c("Entity","Year"))
@@ -405,12 +411,18 @@ grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = Ha
 grafico2
 
 ```
+
 Inicialmente se puede observar que, para los datos obtenidos, muy pocos países no poseían legislaciones relacionadas a estos crímenes, pero si se registraban actos de violencia de esta índole. Por otro lado, se puede apreciar que la mayoría de países tienen algún tipo de legislación que regula estos crímenes, inclusive los que en la primera gráfica tienen data registrada, es decir, que en un inicio no tenían.
 
 Tomando en consideración solo los países que no tenían una legislación decretada, pero en la actualidad si, se puede observar que luego de la aplicación o decreto de estas legislaciones bajo un poco la tasa, lo cual nos indica que las medidas aplicadas surtieron algo de efecto sobre los habitantes, pero, sin embargo, no se considera que haya sido lo suficientemente significativo el cambio.
 
+
 ***
-#### Gráfico 3. CANTIDAD DE MUERTES POR PAÍS.
+#### Gráfico 3. CANTIDAD DE MUERTES MOTIVADO POR LA VIOLENCIA DE GÉNERO SEPARADO POR PAÍS.
+
+
+La idea de este gráfico es mostrar de forma más explicita la cantidad de muertes por violencia de género que han ido ocurriendo a lo largo del tiempo dentro de cada país. Más específicamente desde el año 2000 hasta el 2020 por cada país que se encuentra participando en este estudio. Para esto también se empleó un gráfico de líneas de donde se han separado por país. 
+
 
 ```{r}
 colors_vec <- c("#4d4dff", "#00b3b3", "#00cc99", "#b3b300", "#b35900", "#cc99cc", "#ff4d4d", "#808080", "#ff9933", "#6666ff", "#00e6e6", "#b3b3b3", "#ff66ff", "#ffcc99", "#99ff99", "#ff6666", "#b3b300", "#00b3b3", "#ff99cc", "#6666ff", "#ffcc00", "#cc00cc", "#ff4d4d", "#00cc00", "#b35900", "#4d4dff", "#808080", "#FF9933", "#99E6E6", "#FF99CC", "#6666FF", "#FFCC70", "#CC00CC")
@@ -432,6 +444,10 @@ knitr::opts_chunk$set(fig.width=18, fig.height=18)
 grafico3
 
 ```
+
+
+El número de muertes de mujeres por violencia de género en muchos paises va aumentando, o mantienen cierta estabilidad, es decir, suben o bajan muy poco. Es interesante destacar que algunos países con altos números de muertes de mujeres ocasioandas por la violencia de género pueden tener tasas relativamente bajas de muertes por cada 100.000 habitantes debido a su población femenina más grande. Sin embargo, esto no significa que la violencia de género sea menos prevalente o menos grave en estos países. 
+
 
 ***
 ### CONCLUSIÓN.
