@@ -381,18 +381,19 @@ grafico1
 #### Gráfico 2. TASA POR CADA 100.000 MUJERES JUNTO A SI TIENEN LEGISLACIONES.
 
 ```{r}
-new_data <- left_join(data,data5,by=c("Entity","Year"))
+new_data <- left_join(data4,data5,by=c("Entity","Year"))
 women_grouped <- new_data %>% 
-  filter(Tipodevalor == "Tasa (por cada 100.000 mujeres)") %>%
+  filter(HasLegislationDomesticViolence !="..") %>%
   group_by(Entity, HasLegislationDomesticViolence) %>% 
-  summarize(mean_death_rate = mean(Value))
+  summarize(mean_death_rate = mean(Death))
 
 grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = HasLegislationDomesticViolence)) +
   geom_bar(stat = "identity", position = "dodge") +
-  labs(title = "Comparacion de Tasas de muerte por status de legislacion",
+  facet_grid(HasLegislationDomesticViolence ~ .) +
+  labs(title = "Comparacion de Tasas de Muerte promedio antes y despues de legislaciones",
        x = "Pais",
-       y = "Tasa de Muerte promedio",
-       fill = "Status de legislacion") +
+       y = "Tasa de Muerte Promedio",
+       fill = "Status de Legislacion") +
   theme(plot.title = element_text(hjust = 0.5))
 ``` 
 
