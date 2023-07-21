@@ -394,7 +394,7 @@ grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = Ha
        y = "Tasa de Muerte promedio",
        fill = "Status de legislacion") +
   theme(plot.title = element_text(hjust = 0.5))
-```
+``` 
 
 ```{r}
 grafico2
