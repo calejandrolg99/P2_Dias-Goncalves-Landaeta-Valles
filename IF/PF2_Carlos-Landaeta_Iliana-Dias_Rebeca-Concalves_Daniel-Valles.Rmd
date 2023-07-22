@@ -405,7 +405,7 @@ Para acceder a los datos, entrar en los siguientes enlaces:
 #### Gráfico 1. TASA DE MUERTES POR CADA 100.000 MUJERES.
 
 
-En el siguiente gráfico se pretende observar cual es la tasa de muertes o asesinatos realizados por razones de género hacia mujeres desde el año 2005 hasta el año 2020 en la región de América Latina, Centroamérica, España y Portugal separado por cada país para facilitar su lectura de donde dicha representación se realizará utilizando un gráfico de líneas.
+En el siguiente gráfico se pretende observar cual es la tasa de muertes o asesinatos realizados por razones de género hacia mujeres desde el año 2000 hasta el año 2020 en la región de América Latina, Centroamérica y Europa (España y Portugal) separado por región para facilitar su lectura de donde dicha representación se realizará utilizando un gráfico de líneas.
 
 
 ```{r}
@@ -428,13 +428,15 @@ grafico1
 
 ```
 
-Como se puede observar, se obtuvieron resultados diversos. Por un lado, tenemos que los países europeos incluidos en el estudio (España y Portugal) presentan una tasa por cada 100.000 mujeres bastante baja y este se mantiene de manera constante durante varios años. También existen varios países de Centro América que presentan una tasa baja. Sin embargo, para el caso de Norte América y Sudamérica tenemos que las tasas que aumentan de forma significativa como lo es el caso a lo largo de los años
+Como se puede observar, se obtuvieron resultados diversos. Por un lado, tenemos que los países europeos incluidos en el estudio (España y Portugal) presentan una tasa por cada 100.000 mujeres bastante baja y este se mantiene de manera constante durante varios años. También existen varios países de Centro América que presentan una tasa baja. Sin embargo, para el caso de Norte América y Sudamérica tenemos que las tasas que aumentan de forma significativa como lo es el caso a lo largo de los años estudiados.
 
 ***
 #### Gráfico 2. TASA DE MUERTES POR CADA 100.000 MUJERES CONSIDERANDO SI EXISTEN O NO LEGISLACIONES QUE REGULEN ESTE TIPO DE CRIMEN.
 
 
-En este caso lo que se pretende observar es la tasa de muertes o asesinatos realizados por razones de género hacia mujeres por países de las regiones de América Latina, Centroamérica y algunos de Europa tomando en consideración si ya existía una legislación para regular este tipo de crímenes o no. Para materializar esto se utilizaron dos gráficos de barras, de donde uno de ellos contiene las tasas de los países que no tenían legislaciones y el otro representa las tasas teniendo en cuenta que existen legislaciones que abordan estos crímenes.
+En este caso lo que se pretende observar es la tasa de muertes o asesinatos realizados por razones de género hacia mujeres por países de las regiones de América Latina, Centroamérica y algunos de Europa tomando en consideración si ya existía una legislación para regular este tipo de crímenes o no. Para materializar esto, se tuvo que realizar una especie de filtro debido a que no todos los países contemplados tuvieron cambios en sus legislaciones para estos casos. Como resultado de este filtro solo nos quedaron 4 países los cuales son Chile, Republica Domenicana, Panama y Suriname.
+
+Tomando en cuenta estos datos únicamente, se hizo uso de un gráficos de barras, de donde se puede ver representado dos barras por país, en donde una de ellas representa la tasa antes del decreto de la legislación y la otra representa la tasa luego de la aplicación de la legislación.
 
 
 ```{r}
@@ -472,7 +474,7 @@ Se puede observar que, para los países como Chile, Dominica, Panamá y Suriname
 #### Gráfico 3. CANTIDAD DE MUERTES MOTIVADO POR LA VIOLENCIA DE GÉNERO SEPARADO POR PAÍS.
 
 
-La idea de este gráfico es mostrar de forma más explicita la cantidad de muertes por violencia de género que han ido ocurriendo a lo largo del tiempo dentro de cada país. Más específicamente desde el año 2000 hasta el 2020 por cada país que se encuentra participando en este estudio. Para esto también se empleó un gráfico de líneas de donde se han separado por país. 
+La idea de este gráfico es mostrar de forma más explicita la cantidad de muertes por violencia de género que han ido ocurriendo a lo largo del tiempo dentro de cada región. Más específicamente desde el año 2000 hasta el 2020 por cada región que se encuentra participando en este estudio. Para esto también se empleó un gráfico de líneas de donde se han separado por región.
 
 
 ```{r}
