@@ -278,5 +278,15 @@ grafico2 <- ggplot(women_grouped, aes(x = Entity, y = mean_death_rate, fill = Ha
 
 grafico2
 
+grafico3 = data %>%
+  filter(Tipodevalor == 'Número absoluto') %>% 
+  ggplot(aes( x= Year, y= Value, color=continente)) + 
+  geom_line() + 
+  theme(axis.text.x = element_text(angle = 45)) + 
+  ggtitle("Comparacion de las muertes de Mujeres", "Separados por pais") + 
+  facet_wrap(~continente) 
+
+grafico3
+
 
 
